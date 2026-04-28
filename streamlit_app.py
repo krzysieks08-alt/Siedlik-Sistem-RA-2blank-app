@@ -1,4 +1,3 @@
-
 import streamlit as st
 import random
 import time
@@ -7,10 +6,10 @@ from datetime import datetime
 from gtts import gTTS
 from io import BytesIO
 
-# --- SIEDLIK SYSTEM RA 8.5 INFINITY ENGINE ---
+# --- KONFIGURACJA SIEDLIK RA 8.5 ---
 st.set_page_config(page_title="SIEDLIK RA 8.5 INFINITY", page_icon="⚡", layout="wide")
 
-# --- CYBER-HUD DESIGN (CUSTOM CSS) ---
+# --- CYBER-HUD DESIGN (ZAAWANSOWANY CSS) ---
 st.markdown("""
     <style>
    .stApp {
@@ -56,44 +55,39 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- INITIALIZATION ---
+# --- INICJALIZACJA SYSTEMU ---
 if 'xp' not in st.session_state: st.session_state.xp = 0
-if 'logs' not in st.session_state: st.session_state.logs =
+if 'logs' not in st.session_state: st.session_state.logs = Initializing 8.5 Infinity..."]
 
-# --- 300 CORES DATABASE (BAZA MOCY) ---
-cores = {
-    "BIOLOGIA/SURVIVAL": {"Makan": "Jeść", "Minum": "Pić", "Tidur": "Spać", "Bisa": "Móc", "Tahu": "Wiedzieć"},
-    "LOGISTYKA/MIASTO": {"Pergi": "Iść", "Datang": "Przyjść", "Naik": "Wsiadać", "Turun": "Wysiadać", "Belok": "Skręcać"},
-    "STATUS/EMOCJE": {"Bagus": "Fajne", "Mahal": "Drogie", "Murah": "Tanie", "Sakit": "Boli", "Sayang": "Kochać/Troska"}
-}
+# --- BAZA RDZENI ---
+cores = {"Makan": "Jeść", "Minum": "Pić", "Pergi": "Iść", "Bisa": "Móc", "Tahu": "Wiedzieć", "Bagus": "Fajne"}
 
-# --- SIDEBAR: OPERATOR STATUS ---
+# --- SIDEBAR: STATUS OPERATORA ---
 with st.sidebar:
-    st.markdown("### 🖥️ DASHBOARD")
+    st.markdown("### 🖥️ COMMAND CENTER")
     st.write(f"🔥 STREAK: {st.session_state.get('streak', 1)} DNI")
     st.progress(st.session_state.xp % 100 / 100)
     st.write(f"SYNCHRONIZACJA XP: {st.session_state.xp}")
-    lang_mode = st.radio("INTERFACE:",)
+    st.radio("MODUŁ JĘZYKA:",)
 
 # --- HEADER ---
 st.markdown('<div class="neon-title">⚡ SIEDLIK RA 8.5 INFINITY ⚡</div>', unsafe_allow_html=True)
 
-# --- OPERATIONAL PANEL ---
+# --- PANEL OPERACYJNY ---
 st.markdown('<div class="cyber-card">', unsafe_allow_html=True)
 col1, col2, col3 = st.columns(3)
 with col1: sub = st.selectbox("SUBJECT",)
 with col2: wak = st.selectbox("TIME ENGINE",)
-with col3: kat = st.selectbox("CATEGORY", list(cores.keys()))
+with col3: kat = st.selectbox("CATEGORY",)
 
-kata_sel = st.selectbox("ACTION / CORE WORD", list(cores[kat].keys()))
+kata_sel = st.selectbox("ACTION / CORE WORD", list(cores.keys()))
 
 if st.button("🚀 EXECUTE REVOLUTION CODE"):
-    t_code = wak.split(" ")
-    res = f"{sub} {t_code} {kata_sel}"
+    res = f"{sub} {wak} {kata_sel}"
     st.session_state.xp += 10
     st.session_state.logs.append(f"[{datetime.now().strftime('%H:%M')}] Decoded: {res}")
     
-    # TTS Autoplay Engine
+    # TTS Autoplay Engine [8, 9]
     tts = gTTS(text=res, lang='id')
     fp = BytesIO()
     tts.write_to_fp(fp)
@@ -102,16 +96,15 @@ if st.button("🚀 EXECUTE REVOLUTION CODE"):
     st.success(f"### SYSTEM OUTPUT: {res}")
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- CRISIS & GPS ---
+# --- MODUŁY SOS & GPS [10, 11] ---
 st.write("")
-cs1, cs2 = st.columns(2)
-with cs1:
+col_sos, col_gps = st.columns(2)
+with col_sos:
     if st.button("🚨 TRIGGER SOS"):
         st.error("!!! SOS BROADCAST: TOLONG!!!")
-        st.markdown('<audio autoplay src="https://translate.google.com/translate_tts?ie=UTF-8&q=Tolong+Sakit&tl=id&client=tw-ob"></audio>', unsafe_allow_html=True)
-with cs2:
-    if st.button("📍 GPS PING"):
-        st.code("Lat: -6.2088, Lon: 106.8456 (HQ JAKARTA)")
+with col_gps:
+    if st.button("📍 GET GPS PING"):
+        st.code("Lat: -6.2088, Lon: 106.8456 (JAKARTA HUB)")
         st.toast("Lokalizacja pobrana.", icon="📍")
 
 # --- TERMINAL LOGS ---
@@ -119,3 +112,9 @@ st.write("---")
 st.markdown("### 📡 SYSTEM LOGS (LIVE)")
 log_box = "<br>".join(st.session_state.logs[-5:])
 st.markdown(f'<div style="background:#050505; border-left:4px solid #ff00ff; padding:15px; color:#ff00ff; font-size:0.9em;">{log_box}</div>', unsafe_allow_html=True)
+
+# --- PDF PREMIUM MODULE ---
+with st.expander("🔑 UNLOCK ULTIMATE MANIFESTO (PDF)"):
+    if st.text_input("Enter Auth Code:", type="password") == "RA2024":
+        st.balloons()
+        st.write("🔓(https://twoj-link-do-pdfa.com)")
