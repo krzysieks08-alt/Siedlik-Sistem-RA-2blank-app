@@ -1,16 +1,17 @@
-name: Buduj APK
-on: push
+
+name: Build APK
+on: [push, workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Buildozer Action
+      - name: Build with Buildozer
         uses: ArtemSerebrennkov/buildozer-action@v1
         with:
           command: buildozer android debug
-      - name: Pobierz
+      - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: Siedlik_APK
+          name: Siedlik_System_App
           path: bin/*.apk
