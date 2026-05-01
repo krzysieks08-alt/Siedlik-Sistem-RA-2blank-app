@@ -8,8 +8,8 @@ package.name = siedliksystem
 package.domain = org.siedlik
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,json,yaml,txt
-version = 1.5
 
+version = 3.0
 # Minimalne, stabilne wymagania
 requirements = python3, flet==0.21.0, hostpython3, openssl, sqlite3, certifi
 
