@@ -1,8 +1,5 @@
 [buildozer]
-# (str) Log level (0 = error only, 1 = info, 2 = debug (with command output))
 log_level = 2
-
-# (str) Path to build artifact storage, indended to be a shared cache
 warn_on_root = 1
 
 [app]
@@ -12,54 +9,48 @@ title = SIEDLIK SYSTEM
 # (str) Package name
 package.name = siedliksystem
 
-# (str) Package domain (needed for android packaging)
+# (str) Package domain
 package.domain = org.siedlik
 
 # (str) Source code where the main.py live
 source.dir = .
 
-# (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,json
+# (list) Source files to include
+source.include_exts = py,png,jpg,kv,atlas,json,txt,yaml
 
 # (str) Application versioning
 version = 1.0
 
-# (list) Application requirements
-# UWAGA: Dla Flet ważne jest dodanie tych zależności
-requirements = python3,flet,hostpython3
+# (list) KLUCZOWE: Wymagania dla Flet (dodane openssl, sqlite i certyfikaty)
+requirements = python3, flet, hostpython3, openssl, sqlite3, certifi, chardet, idna, urllib3
 
 # (str) Supported orientations
 orientation = portrait
 
-# (bool) Indicate if the application should be fullscreen or not
+# (bool) Fullscreen
 fullscreen = 0
 
 # (list) Permissions
-android.permissions = INTERNET
+android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
 
-# (int) Target Android API, should be as high as possible.
+# (int) Target Android API
 android.api = 33
 
-# (int) Minimum API your APK will support.
+# (int) Minimum API
 android.minapi = 21
 
-# (str) Android NDK version to use
+# (str) Android NDK version
 android.ndk = 25b
 
-# (str) Android SDK directory
-# android.sdk_path = 
-
-# (str) Android NDK directory
-# android.ndk_path = 
-
-# (list) Architecture to build for (keep only what you need)
+# (list) Architecture
 android.archs = arm64-v8a
 
-# (bool) allows Android to issue a warning if the disk space is too low
+# (bool) Allow backup
 android.allow_backup = True
 
-# (str) The format used to package the app for release mode (aab or apk)
+# (str) Format
 android.release_artifact = apk
-
-# (str) The format used to package the app for debug mode (apk or aar)
 android.debug_artifact = apk
+
+# (str) Python-for-android branch
+p4a.branch = master
