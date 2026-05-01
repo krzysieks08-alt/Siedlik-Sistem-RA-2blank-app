@@ -1,52 +1,29 @@
-import flet as ft
-import random
+[buildozer]
+log_level = 2
+warn_on_root = 1
 
-def main(page: ft.Page):
-    # Podstawowe ustawienia wyglądu pod telefon
-    page.title = "SIEDLIK SYSTEM"
-    page.theme_mode = ft.ThemeMode.DARK
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.padding = 20
+[app]
+title = SIEDLIK SYSTEM
+package.name = siedliksystem
+package.domain = org.siedlik
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas,json,yaml,txt
+version = 2.0
 
-    def generate(e):
-        atoms = ["MAKAN", "TIDUR", "KERJA", "BELI", "JALAN", "LIHAT"]
-        osoby = ["SAYA", "KITA", "KAMI", "MEREKA"]
-        res.value = f"{random.choice(osoby)} RAI {random.choice(atoms)}"
-        page.update()
+# Absolutne minimum - Flet sam dociągnie resztę
+requirements = python3, flet==0.21.0
 
-    # Interfejs użytkownika
-    res = ft.Text(
-        value="SYSTEM READY", 
-        size=32, 
-        color="cyan", 
-        weight="bold",
-        text_align=ft.TextAlign.CENTER
-    )
-    
-    btn = ft.ElevatedButton(
-        text="GENERUJ SYGNAŁ", 
-        on_click=generate,
-        style=ft.ButtonStyle(
-            color=ft.colors.WHITE,
-            bgcolor=ft.colors.BLUE_700,
-            padding=20
-        )
-    )
+orientation = portrait
+fullscreen = 0
+android.permissions = INTERNET
 
-    # Dodanie elementów do strony
-    page.add(
-        ft.Column(
-            [
-                ft.Icon(ft.icons.CELL_TOWER, color="cyan", size=50),
-                res,
-                ft.Divider(height=20, color="transparent"),
-                btn
-            ],
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        )
-    )
+# Ustawienia "bezpieczne" dla serwerów GitHub
+android.api = 31
+android.minapi = 21
+android.archs = arm64-v8a
+android.allow_backup = True
 
-# TO JEST KLUCZOWE DLA ANDROIDA:
-if __name__ == "__main__":
-    ft.app(target=main)
+android.release_artifact = apk
+android.debug_artifact = apk
+
+p4a.branch = master
