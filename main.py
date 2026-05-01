@@ -1,29 +1,54 @@
-[buildozer]
-log_level = 2
-warn_on_root = 1
+import flet as ft
 
-[app]
-title = SIEDLIK SYSTEM
-package.name = siedliksystem
-package.domain = org.siedlik
-source.dir = .
-source.include_exts = py,png,jpg,kv,atlas,json,yaml,txt
-version = 2.0
+def main(page: ft.Page):
+    # Ustawienia wizualne
+    page.title = "SIEDLIK SYSTEM"
+    page.theme_mode = ft.ThemeMode.DARK  # Zmieńmy na Dark, żeby wyglądało bardziej "pro"
+    page.bgcolor = "#1A1A1A"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-# Absolutne minimum - Flet sam dociągnie resztę
-requirements = python3, flet==0.21.0
+    # Funkcja przycisku
+    def on_generate_click(e):
+        btn.text = "SYGNAŁ WYSŁANY"
+        btn.bgcolor = ft.colors.GREEN_600
+        status_text.value = "STATUS: AKTYWNY"
+        status_text.color = ft.colors.GREEN_400
+        page.update()
 
-orientation = portrait
-fullscreen = 0
-android.permissions = INTERNET
+    # Elementy interfejsu
+    status_text = ft.Text("STATUS: OCZEKIWANIE", size=20, color=ft.colors.AMBER_400)
+    
+    btn = ft.ElevatedButton(
+        text="GENERUJ SYGNAŁ",
+        width=250,
+        height=60,
+        on_click=on_generate_click,
+        style=ft.ButtonStyle(
+            bgcolor=ft.colors.BLUE_800,
+            color=ft.colors.WHITE,
+            shape=ft.RoundedRectangleBorder(radius=12),
+        )
+    )
 
-# Ustawienia "bezpieczne" dla serwerów GitHub
-android.api = 31
-android.minapi = 21
-android.archs = arm64-v8a
-android.allow_backup = True
+    # Budowanie widoku
+    page.add(
+        ft.Container(
+            content=ft.Column(
+                [
+                    ft.Icon(ft.icons.CELL_TOWER_ROUNDED, size=100, color=ft.colors.BLUE_500),
+                    ft.Text("SIEDLIK SYSTEM", size=32, weight="bold"),
+                    ft.Divider(height=40, color="transparent"),
+                    status_text,
+                    ft.Divider(height=20, color="transparent"),
+                    btn,
+                ],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            ),
+            padding=40
+        )
+    )
 
-android.release_artifact = apk
-android.debug_artifact = apk
-
-p4a.branch = master
+# Start aplikacji
+if __name__ == "__main__":
+    ft.app(target=main)
