@@ -4,17 +4,17 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Automatycznie wybierze najnowszą stabilną wersję (22.04/24.04)
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Aktualizacja do v4
+      - uses: actions/checkout@v4
 
       - name: Build with Buildozer
-        uses: ArtemSerebrennkov/buildozer-action@v1
+        uses: ArtemSerebrennikov/buildozer-action@v1  # Tutaj była literówka (dodane 'i')
         with:
           command: buildozer android debug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4  # Aktualizacja do v4
+        uses: actions/upload-artifact@v4
         with:
           name: Siedlik_System_App
           path: bin/*.apk
