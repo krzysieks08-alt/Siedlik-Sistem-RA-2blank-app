@@ -1,39 +1,37 @@
 import flet as ft
 
 def main(page: ft.Page):
-    # Ustawienia wizualne
     page.title = "SIEDLIK SYSTEM"
-    page.theme_mode = ft.ThemeMode.DARK  # Zmieńmy na Dark, żeby wyglądało bardziej "pro"
-    page.bgcolor = "#1A1A1A"
+    page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = "#0A0A0A"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-    # Funkcja przycisku
-    def on_generate_click(e):
+    def handle_click(e):
         btn.text = "SYGNAŁ WYSŁANY"
-        btn.bgcolor = ft.colors.GREEN_600
-        status_text.value = "STATUS: AKTYWNY"
-        status_text.color = ft.colors.GREEN_400
+        btn.bgcolor = ft.colors.GREEN_700
         page.update()
 
-    # Elementy interfejsu
-    status_text = ft.Text("STATUS: OCZEKIWANIE", size=20, color=ft.colors.AMBER_400)
+    icon = ft.Icon(ft.icons.WIFI_TETHERING_ROUNDED, size=100, color=ft.colors.BLUE_600)
+    status = ft.Text("SYSTEM GOTOWY", size=18, color=ft.colors.GREY_500)
     
     btn = ft.ElevatedButton(
         text="GENERUJ SYGNAŁ",
         width=250,
         height=60,
-        on_click=on_generate_click,
-        style=ft.ButtonStyle(
-            bgcolor=ft.colors.BLUE_800,
-            color=ft.colors.WHITE,
-            shape=ft.RoundedRectangleBorder(radius=12),
-        )
+        on_click=handle_click
     )
 
-    # Budowanie widoku
     page.add(
-        ft.Container(
+        icon,
+        ft.Text("SIEDLIK SYSTEM", size=28, weight="bold"),
+        status,
+        ft.Divider(height=20, color="transparent"),
+        btn
+    )
+
+# TO JEST NAJWAŻNIEJSZA LINIA DLA VERCELA:
+app = ft.app(target=main, view=ft.AppView.WEB_BROWSER)
             content=ft.Column(
                 [
                     ft.Icon(ft.icons.CELL_TOWER_ROUNDED, size=100, color=ft.colors.BLUE_500),
